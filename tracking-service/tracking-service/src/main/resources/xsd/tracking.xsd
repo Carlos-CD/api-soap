@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://logistica.com/ws/tracking"
+           targetNamespace="http://logistica.com/ws/tracking"
+           elementFormDefault="qualified">
+
+    <xs:element name="GetTrackingStatusRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="trackingNumber" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetTrackingStatusResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+                <xs:element name="currentLocation" type="xs:string"/>
+                <xs:element name="estimatedDeliveryDate" type="xs:date"/>
+                <xs:element name="history" type="tns:TrackingEvent" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="TrackingEvent">
+        <xs:sequence>
+            <xs:element name="date" type="xs:dateTime"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="location" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="TrackingError">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="errorCode" type="xs:int"/>
+                <xs:element name="errorMessage" type="xs:string"/>
+                <xs:element name="invalidField" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
